@@ -24,10 +24,16 @@ locals {
         # Use cluster VPC/subnets if not specified
         vpc_id     = coalesce(pool.vpc_id, var.vpc_id)
         subnet_ids = coalesce(pool.subnet_ids, var.subnet_ids)
-        # Use pool ssh_key_name or defaults (null check needed since coalesce fails on all-null)
-        ssh_key_name = pool.ssh_key_name != null ? pool.ssh_key_name : try(var.node_pool_defaults.ssh_key_name, null)
+        # Use pool ssh_key_name, or node_pool_defaults, or module-level ssh_key_name (required)
+        ssh_key_name = coalesce(pool.ssh_key_name, try(var.node_pool_defaults.ssh_key_name, null), var.ssh_key_name)
         # Use pool volume_size or defaults
         volume_size = pool.volume_size != null ? pool.volume_size : try(var.node_pool_defaults.volume_size, null)
+        # Use pool is_hyper_threading or defaults
+        is_hyper_threading = pool.is_hyper_threading != null ? pool.is_hyper_threading : try(var.node_pool_defaults.is_hyper_threading, null)
+        # Use pool user_data or defaults
+        user_data = pool.user_data != null ? pool.user_data : try(var.node_pool_defaults.user_data, null)
+        # Use pool timeouts or defaults
+        timeouts = pool.timeouts != null ? pool.timeouts : try(var.node_pool_defaults.timeouts, null)
         # Merge labels (pool labels override defaults)
         labels = merge(
           try(var.node_pool_defaults.labels, {}),

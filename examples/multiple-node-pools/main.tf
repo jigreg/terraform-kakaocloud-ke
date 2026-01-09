@@ -10,8 +10,9 @@ module "ke" {
   cluster_version     = var.cluster_version
   cluster_description = "Production cluster with multiple node pools"
 
-  vpc_id     = var.vpc_id
-  subnet_ids = var.subnet_ids
+  vpc_id       = var.vpc_id
+  subnet_ids   = var.subnet_ids
+  ssh_key_name = var.ssh_key_name
 
   network_config = {
     cni          = "cilium"
@@ -21,8 +22,7 @@ module "ke" {
 
   # Default settings for all pools
   node_pool_defaults = {
-    ssh_key_name = var.ssh_key_name
-    volume_size  = 100
+    volume_size = 100
     labels = {
       "managed-by" = "terraform"
     }

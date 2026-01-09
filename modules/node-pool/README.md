@@ -39,7 +39,7 @@ No modules.
 | <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Desired number of nodes in the pool. | `number` | `2` | no |
 | <a name="input_node_flavor"></a> [node\_flavor](#input\_node\_flavor) | Instance flavor for worker nodes (e.g., m2a.large). | `string` | `"m2a.large"` | no |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | List of security group IDs to attach to nodes. | `list(string)` | `[]` | no |
-| <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | SSH KeyPair name to inject into nodes. | `string` | `null` | no |
+| <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | SSH KeyPair name to inject into nodes. | `string` | `null` | yes |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnet IDs for the node pool. | `list(string)` | n/a | yes |
 | <a name="input_taints"></a> [taints](#input\_taints) | Kubernetes taints to apply to nodes. | <pre>list(object({<br/>    key    = string<br/>    value  = optional(string, "")<br/>    effect = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_user_script"></a> [user\_script](#input\_user\_script) | User script to run on node initialization (base64 encoded, up to 16KB). | `string` | `null` | no |

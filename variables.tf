@@ -76,6 +76,15 @@ variable "network_config" {
 }
 
 # ------------------------------------------------------------------------------
+# SSH Key (Required)
+# ------------------------------------------------------------------------------
+
+variable "ssh_key_name" {
+  description = "SSH KeyPair name to inject into nodes. Required by Kakao Cloud."
+  type        = string
+}
+
+# ------------------------------------------------------------------------------
 # Node Pools Configuration (Map of Objects Pattern)
 # ------------------------------------------------------------------------------
 
@@ -105,14 +114,13 @@ variable "node_pools" {
 
   type = map(object({
     # Basic configuration
-    node_count     = optional(number, 2)
-    min_node_count = optional(number, null)
-    max_node_count = optional(number, null)
-    node_flavor    = optional(string, "m2a.large")
-    description    = optional(string, "")
+    node_count  = optional(number, 2)
+    node_flavor = optional(string, "m2a.large")
+    description = optional(string, "")
 
     # Image configuration
-    kubernetes_version = optional(string, null)
+    kubernetes_version = optional(string, null) # For image selection
+    minor_version      = optional(string, null) # Kubernetes version of node pool
     is_gpu             = optional(bool, false)
     image_id           = optional(string, null)
 
@@ -122,16 +130,17 @@ variable "node_pools" {
     security_group_ids = optional(list(string), [])
 
     # Node configuration
-    ssh_key_name = optional(string, null)
-    user_script  = optional(string, null)
-    volume_size  = optional(number, null)
+    ssh_key_name       = optional(string, null)
+    volume_size        = optional(number, null)
+    is_hyper_threading = optional(bool, null)
+    user_data          = optional(string, null) # Base64 encoded user script
 
     # Kubernetes configuration
     labels = optional(map(string), {})
     taints = optional(list(object({
       key    = string
       value  = optional(string, "")
-      effect = string
+      effect = string # NoExecute, NoSchedule, PreferNoSchedule
     })), [])
 
     # Auto-scaling configuration
@@ -154,6 +163,14 @@ variable "node_pools" {
       schedule      = optional(string, null)
     })), [])
 
+    # Timeouts configuration
+    timeouts = optional(object({
+      create = optional(string, null)
+      read   = optional(string, null)
+      update = optional(string, null)
+      delete = optional(string, null)
+    }), null)
+
     # Lifecycle
     create = optional(bool, true)
   }))
@@ -168,17 +185,24 @@ variable "node_pools" {
 variable "node_pool_defaults" {
   description = "Default values applied to all node pools (can be overridden per pool)."
   type = object({
-    node_count   = optional(number, 2)
-    node_flavor  = optional(string, "m2a.large")
-    ssh_key_name = optional(string, null)
-    volume_size  = optional(number, null)
-    labels       = optional(map(string), {})
+    node_count         = optional(number, 2)
+    node_flavor        = optional(string, "m2a.large")
+    ssh_key_name       = optional(string, null)
+    volume_size        = optional(number, null)
+    is_hyper_threading = optional(bool, null)
+    user_data          = optional(string, null)
+    labels             = optional(map(string), {})
     taints = optional(list(object({
       key    = string
       value  = optional(string, "")
       effect = string
     })), [])
+    timeouts = optional(object({
+      create = optional(string, null)
+      read   = optional(string, null)
+      update = optional(string, null)
+      delete = optional(string, null)
+    }), null)
   })
   default = {}
 }
-

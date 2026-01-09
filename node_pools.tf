@@ -14,15 +14,17 @@ module "node_pool" {
   name               = each.key
   description        = each.value.description
   kubernetes_version = each.value.kubernetes_version
+  minor_version      = each.value.minor_version
 
   # Node configuration
-  node_count   = each.value.node_count
-  node_flavor  = each.value.node_flavor
-  is_gpu       = each.value.is_gpu
-  image_id     = each.value.image_id
-  ssh_key_name = each.value.ssh_key_name
-  user_script  = each.value.user_script
-  volume_size  = each.value.volume_size
+  node_count         = each.value.node_count
+  node_flavor        = each.value.node_flavor
+  is_gpu             = each.value.is_gpu
+  image_id           = each.value.image_id
+  ssh_key_name       = each.value.ssh_key_name
+  volume_size        = each.value.volume_size
+  is_hyper_threading = each.value.is_hyper_threading
+  user_data          = each.value.user_data
 
   # Network
   vpc_id             = each.value.vpc_id
@@ -35,6 +37,9 @@ module "node_pool" {
 
   # Auto-scaling
   auto_scaling = each.value.auto_scaling
+
+  # Timeouts
+  timeouts = each.value.timeouts
 
   depends_on = [module.cluster]
 }

@@ -87,8 +87,11 @@ resource "kakaocloud_kubernetes_engine_node_pool" "this" {
   }
 
   # Optional arguments
-  description = var.description
-  volume_size = var.volume_size
+  description        = var.description != "" ? var.description : null
+  volume_size        = var.volume_size
+  minor_version      = var.minor_version
+  is_hyper_threading = var.is_hyper_threading
+  user_data          = var.user_data
 
   # Node count - only set if autoscaling is disabled
   request_node_count = local.auto_scaling_enabled ? null : var.node_count
@@ -96,16 +99,13 @@ resource "kakaocloud_kubernetes_engine_node_pool" "this" {
   # Security groups (optional)
   request_security_groups = length(var.security_group_ids) > 0 ? var.security_group_ids : null
 
-  # User data script (optional, base64 encoded)
-  user_data = var.user_script
-
   # Node labels (set of objects)
   labels = local.labels_list
 
   # Node taints (set of objects)
   taints = local.taints_list
 
-  # Auto-scaling configuration (object, not block)
+  # Auto-scaling configuration (object)
   autoscaling = local.auto_scaling_enabled ? {
     is_autoscaler_enable                = true
     autoscaler_min_node_count           = var.auto_scaling.min_nodes
@@ -114,6 +114,14 @@ resource "kakaocloud_kubernetes_engine_node_pool" "this" {
     autoscaler_scale_down_threshold     = var.auto_scaling.scale_down_threshold / 100.0
     autoscaler_scale_down_unneeded_time = var.auto_scaling.threshold_duration_minutes * 60
     autoscaler_scale_down_unready_time  = var.auto_scaling.post_scale_up_exclusion_minutes * 60
+  } : null
+
+  # Timeouts configuration
+  timeouts = var.timeouts != null ? {
+    create = var.timeouts.create
+    read   = var.timeouts.read
+    update = var.timeouts.update
+    delete = var.timeouts.delete
   } : null
 
   lifecycle {

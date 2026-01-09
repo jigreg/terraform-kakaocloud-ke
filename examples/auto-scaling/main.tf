@@ -9,12 +9,9 @@ module "ke" {
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
 
-  vpc_id     = var.vpc_id
-  subnet_ids = var.subnet_ids
-
-  node_pool_defaults = {
-    ssh_key_name = var.ssh_key_name
-  }
+  vpc_id       = var.vpc_id
+  subnet_ids   = var.subnet_ids
+  ssh_key_name = var.ssh_key_name
 
   node_pools = {
     # System pool - fixed size for critical workloads

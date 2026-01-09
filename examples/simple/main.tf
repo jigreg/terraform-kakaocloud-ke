@@ -8,14 +8,14 @@ module "ke" {
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
 
-  vpc_id     = var.vpc_id
-  subnet_ids = var.subnet_ids
+  vpc_id       = var.vpc_id
+  subnet_ids   = var.subnet_ids
+  ssh_key_name = var.ssh_key_name
 
   node_pools = {
     default = {
-      node_count   = var.node_count
-      node_flavor  = var.node_flavor
-      ssh_key_name = var.ssh_key_name
+      node_count  = var.node_count
+      node_flavor = var.node_flavor
     }
   }
 }
