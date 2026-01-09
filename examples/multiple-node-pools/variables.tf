@@ -28,15 +28,6 @@ variable "ssh_key_name" {
   type        = string
 }
 
-variable "tags" {
-  description = "Tags to apply."
-  type        = map(string)
-  default = {
-    Environment = "production"
-    Team        = "platform"
-  }
-}
-
 # Provider authentication
 variable "application_credential_id" {
   description = "Kakao Cloud application credential ID."

@@ -25,6 +25,4 @@ module "cluster" {
   cni          = var.network_config.cni
   pod_cidr     = var.network_config.pod_cidr
   service_cidr = var.network_config.service_cidr
-
-  tags = var.tags
 }

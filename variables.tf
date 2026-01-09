@@ -182,12 +182,3 @@ variable "node_pool_defaults" {
   default = {}
 }
 
-# ------------------------------------------------------------------------------
-# Common Tags
-# ------------------------------------------------------------------------------
-
-variable "tags" {
-  description = "Tags to apply to all resources."
-  type        = map(string)
-  default     = {}
-}

@@ -1,0 +1,62 @@
+# ==============================================================================
+# Simple Example - Terraform Variables
+# ==============================================================================
+# Copy this file to terraform.tfvars and fill in your values.
+#
+# Usage:
+#   cp terraform.tfvars.example terraform.tfvars
+#   # Edit terraform.tfvars with your values
+#   terraform init
+#   terraform plan
+#   terraform apply
+
+# ------------------------------------------------------------------------------
+# Kakao Cloud Authentication
+# ------------------------------------------------------------------------------
+# Get these from Kakao Cloud Console > IAM > Application Credentials
+
+application_credential_id     = "your-application-credential-id"
+application_credential_secret = "your-application-credential-secret"
+
+# ------------------------------------------------------------------------------
+# Cluster Configuration
+# ------------------------------------------------------------------------------
+
+# Cluster name (4-20 characters, alphanumeric and hyphens only)
+cluster_name = "my-ke-cluster"
+
+# Kubernetes version (check available versions in Kakao Cloud console)
+cluster_version = "1.29"
+
+# ------------------------------------------------------------------------------
+# Network Configuration
+# ------------------------------------------------------------------------------
+
+# VPC ID where the cluster will be created
+vpc_id = "vpc-xxxxxxxxxxxxxxxx"
+
+# Subnet IDs (at least 2 subnets in different availability zones)
+subnet_ids = [
+  "subnet-aaaaaaaaaaaaaaaa",
+  "subnet-bbbbbbbbbbbbbbbb"
+]
+
+# ------------------------------------------------------------------------------
+# Node Pool Configuration
+# ------------------------------------------------------------------------------
+
+# Number of worker nodes
+node_count = 2
+
+# Instance flavor for nodes
+# Common flavors:
+#   - m2a.large   : 2 vCPU,  8GB RAM (general purpose)
+#   - m2a.xlarge  : 4 vCPU, 16GB RAM (general purpose)
+#   - m2a.2xlarge : 8 vCPU, 32GB RAM (general purpose)
+#   - r2a.large   : 2 vCPU, 16GB RAM (memory optimized)
+#   - r2a.xlarge  : 4 vCPU, 32GB RAM (memory optimized)
+#   - g2a.xlarge  : 4 vCPU, 16GB RAM + GPU (GPU workloads)
+node_flavor = "m2a.large"
+
+# SSH key name for node access (must exist in Kakao Cloud)
+ssh_key_name = "my-ssh-key"

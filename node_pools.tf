@@ -36,7 +36,5 @@ module "node_pool" {
   # Auto-scaling
   auto_scaling = each.value.auto_scaling
 
-  tags = var.tags
-
   depends_on = [module.cluster]
 }

@@ -68,6 +68,4 @@ module "ke" {
       }]
     }
   }
-
-  tags = var.tags
 }

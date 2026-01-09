@@ -12,10 +12,8 @@ locals {
     for name, pool in var.node_pools : name => merge(
       {
         # Apply defaults
-        node_count   = try(var.node_pool_defaults.node_count, 2)
-        node_flavor  = try(var.node_pool_defaults.node_flavor, "m2a.large")
-        ssh_key_name = try(var.node_pool_defaults.ssh_key_name, null)
-        volume_size  = try(var.node_pool_defaults.volume_size, null)
+        node_count  = try(var.node_pool_defaults.node_count, 2)
+        node_flavor = try(var.node_pool_defaults.node_flavor, "m2a.large")
       },
       pool,
       {
@@ -26,6 +24,10 @@ locals {
         # Use cluster VPC/subnets if not specified
         vpc_id     = coalesce(pool.vpc_id, var.vpc_id)
         subnet_ids = coalesce(pool.subnet_ids, var.subnet_ids)
+        # Use pool ssh_key_name or defaults (null check needed since coalesce fails on all-null)
+        ssh_key_name = pool.ssh_key_name != null ? pool.ssh_key_name : try(var.node_pool_defaults.ssh_key_name, null)
+        # Use pool volume_size or defaults
+        volume_size = pool.volume_size != null ? pool.volume_size : try(var.node_pool_defaults.volume_size, null)
         # Merge labels (pool labels override defaults)
         labels = merge(
           try(var.node_pool_defaults.labels, {}),

@@ -1,0 +1,87 @@
+# ==============================================================================
+# Scheduled Scaling Example - Terraform Variables
+# ==============================================================================
+# Copy this file to terraform.tfvars and fill in your values.
+#
+# This example creates a cluster with time-based scheduled scaling:
+#   - Web pool: Scales up during business hours, down at night (cron-based)
+#   - Batch pool: One-time scale-up for scheduled batch jobs
+#
+# Usage:
+#   cp terraform.tfvars.example terraform.tfvars
+#   # Edit terraform.tfvars with your values
+#   terraform init
+#   terraform plan
+#   terraform apply
+
+# ------------------------------------------------------------------------------
+# Kakao Cloud Authentication
+# ------------------------------------------------------------------------------
+# Get these from Kakao Cloud Console > IAM > Application Credentials
+
+application_credential_id     = "your-application-credential-id"
+application_credential_secret = "your-application-credential-secret"
+
+# ------------------------------------------------------------------------------
+# Cluster Configuration
+# ------------------------------------------------------------------------------
+
+# Cluster name (4-20 characters, alphanumeric and hyphens only)
+cluster_name = "scheduled-cluster"
+
+# Kubernetes version (check available versions in Kakao Cloud console)
+cluster_version = "1.29"
+
+# ------------------------------------------------------------------------------
+# Network Configuration
+# ------------------------------------------------------------------------------
+
+# VPC ID where the cluster will be created
+vpc_id = "vpc-xxxxxxxxxxxxxxxx"
+
+# Subnet IDs (at least 2 subnets in different availability zones)
+subnet_ids = [
+  "subnet-aaaaaaaaaaaaaaaa",
+  "subnet-bbbbbbbbbbbbbbbb"
+]
+
+# ------------------------------------------------------------------------------
+# Node Configuration
+# ------------------------------------------------------------------------------
+
+# SSH key name for node access (must exist in Kakao Cloud)
+ssh_key_name = "my-ssh-key"
+
+# ------------------------------------------------------------------------------
+# Scheduled Scaling Configuration (configured in main.tf)
+# ------------------------------------------------------------------------------
+#
+# Web Pool (Cron-based scaling):
+#   - Base: 3x m2a.large nodes
+#   - Business hours (9am-6pm KST, Mon-Fri): Scale to 10 nodes
+#   - Off-hours: Scale down to 2 nodes
+#   - Schedule type: "cron" (recurring)
+#
+# Batch Pool (One-time scaling):
+#   - Base: 1x m2a.xlarge node
+#   - One-time scale to 5 nodes at specific time
+#   - Schedule type: "once" (single execution)
+#   - Taint: dedicated=batch:NoSchedule
+#
+# Scheduled scaling parameters explained:
+#   - name: Unique identifier for the scaling rule
+#   - desired_nodes: Target number of nodes when rule triggers
+#   - schedule_type: "cron" (recurring) or "once" (single execution)
+#   - start_time: When the schedule becomes active (ISO 8601 format)
+#   - schedule: CRON expression for recurring schedules (only for type "cron")
+#
+# CRON expression format: minute hour day-of-month month day-of-week
+#   Examples:
+#   - "0 0 * * 1-5"  : Every weekday at midnight UTC
+#   - "0 9 * * 1-5"  : Every weekday at 9am UTC
+#   - "30 2 * * *"   : Every day at 2:30am UTC
+#   - "0 0 1 * *"    : First day of every month at midnight UTC
+#
+# Note: All times are in UTC. Adjust for your timezone (KST = UTC+9)
+#
+# To modify scheduled scaling settings, edit main.tf directly.

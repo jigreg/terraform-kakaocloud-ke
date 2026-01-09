@@ -1,0 +1,80 @@
+# ==============================================================================
+# Multiple Node Pools Example - Terraform Variables
+# ==============================================================================
+# Copy this file to terraform.tfvars and fill in your values.
+#
+# This example creates a production-ready cluster with:
+#   - General purpose node pool (general workloads)
+#   - Memory-optimized node pool (databases, caching)
+#   - GPU node pool (ML/AI workloads)
+#
+# Usage:
+#   cp terraform.tfvars.example terraform.tfvars
+#   # Edit terraform.tfvars with your values
+#   terraform init
+#   terraform plan
+#   terraform apply
+
+# ------------------------------------------------------------------------------
+# Kakao Cloud Authentication
+# ------------------------------------------------------------------------------
+# Get these from Kakao Cloud Console > IAM > Application Credentials
+
+application_credential_id     = "your-application-credential-id"
+application_credential_secret = "your-application-credential-secret"
+
+# ------------------------------------------------------------------------------
+# Cluster Configuration
+# ------------------------------------------------------------------------------
+
+# Cluster name (4-20 characters, alphanumeric and hyphens only)
+cluster_name = "prod-cluster"
+
+# Kubernetes version (check available versions in Kakao Cloud console)
+cluster_version = "1.30"
+
+# ------------------------------------------------------------------------------
+# Network Configuration
+# ------------------------------------------------------------------------------
+
+# VPC ID where the cluster will be created
+vpc_id = "vpc-xxxxxxxxxxxxxxxx"
+
+# Subnet IDs (at least 2 subnets in different availability zones)
+subnet_ids = [
+  "subnet-aaaaaaaaaaaaaaaa",
+  "subnet-bbbbbbbbbbbbbbbb"
+]
+
+# ------------------------------------------------------------------------------
+# Node Configuration
+# ------------------------------------------------------------------------------
+
+# SSH key name for node access (must exist in Kakao Cloud)
+# This key will be applied to all node pools via node_pool_defaults
+ssh_key_name = "my-ssh-key"
+
+# ------------------------------------------------------------------------------
+# Node Pool Details (configured in main.tf)
+# ------------------------------------------------------------------------------
+#
+# This example creates 3 node pools:
+#
+# 1. General Pool:
+#    - 3x m2a.xlarge (4 vCPU, 16GB RAM)
+#    - Labels: workload-type=general
+#    - For general application workloads
+#
+# 2. Memory Pool:
+#    - 2x r2a.xlarge (4 vCPU, 32GB RAM)
+#    - Labels: workload-type=memory
+#    - Taint: workload-type=memory:NoSchedule
+#    - For databases, Redis, Elasticsearch, etc.
+#
+# 3. GPU Pool:
+#    - 1x g2a.xlarge (4 vCPU, 16GB RAM + GPU)
+#    - Labels: nvidia.com/gpu=true, workload-type=gpu
+#    - Taint: nvidia.com/gpu=true:NoSchedule
+#    - For ML training, inference workloads
+#
+# To modify node pool configurations, edit main.tf directly.

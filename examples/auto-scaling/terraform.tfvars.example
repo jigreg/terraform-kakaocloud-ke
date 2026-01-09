@@ -1,0 +1,79 @@
+# ==============================================================================
+# Auto-Scaling Example - Terraform Variables
+# ==============================================================================
+# Copy this file to terraform.tfvars and fill in your values.
+#
+# This example creates a cluster with auto-scaling enabled:
+#   - System pool: Fixed size (2 nodes) for critical workloads
+#   - App pool: Auto-scaling (2-10 nodes) based on resource utilization
+#
+# Usage:
+#   cp terraform.tfvars.example terraform.tfvars
+#   # Edit terraform.tfvars with your values
+#   terraform init
+#   terraform plan
+#   terraform apply
+
+# ------------------------------------------------------------------------------
+# Kakao Cloud Authentication
+# ------------------------------------------------------------------------------
+# Get these from Kakao Cloud Console > IAM > Application Credentials
+
+application_credential_id     = "your-application-credential-id"
+application_credential_secret = "your-application-credential-secret"
+
+# ------------------------------------------------------------------------------
+# Cluster Configuration
+# ------------------------------------------------------------------------------
+
+# Cluster name (4-20 characters, alphanumeric and hyphens only)
+cluster_name = "autoscale-cluster"
+
+# Kubernetes version (check available versions in Kakao Cloud console)
+cluster_version = "1.29"
+
+# ------------------------------------------------------------------------------
+# Network Configuration
+# ------------------------------------------------------------------------------
+
+# VPC ID where the cluster will be created
+vpc_id = "vpc-xxxxxxxxxxxxxxxx"
+
+# Subnet IDs (at least 2 subnets in different availability zones)
+subnet_ids = [
+  "subnet-aaaaaaaaaaaaaaaa",
+  "subnet-bbbbbbbbbbbbbbbb"
+]
+
+# ------------------------------------------------------------------------------
+# Node Configuration
+# ------------------------------------------------------------------------------
+
+# SSH key name for node access (must exist in Kakao Cloud)
+ssh_key_name = "my-ssh-key"
+
+# ------------------------------------------------------------------------------
+# Auto-Scaling Configuration (configured in main.tf)
+# ------------------------------------------------------------------------------
+#
+# System Pool (Fixed):
+#   - 2x m2a.large nodes
+#   - No auto-scaling (fixed size)
+#   - For system components (ingress, monitoring, etc.)
+#
+# App Pool (Auto-Scaling):
+#   - Initial: 3x m2a.xlarge nodes
+#   - Min: 2 nodes, Max: 10 nodes
+#   - Scale-down threshold: 50% CPU utilization
+#   - Threshold duration: 10 minutes
+#   - Post scale-up exclusion: 5 minutes
+#
+# Auto-scaling parameters explained:
+#   - enabled: Enable/disable auto-scaling
+#   - min_nodes: Minimum number of nodes to maintain
+#   - max_nodes: Maximum number of nodes allowed
+#   - scale_down_threshold: CPU % below which to consider scale-down
+#   - threshold_duration_minutes: How long threshold must be met before scaling
+#   - post_scale_up_exclusion_minutes: Cooldown after scale-up before scale-down
+#
+# To modify auto-scaling settings, edit main.tf directly.
