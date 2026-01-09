@@ -34,12 +34,12 @@ module "ke" {
         "pool-type" = "app"
       }
       auto_scaling = {
-        enabled                          = true
-        min_nodes                        = 2
-        max_nodes                        = 10
-        scale_down_threshold             = 50
-        threshold_duration_minutes       = 10
-        post_scale_up_exclusion_minutes  = 5
+        enabled                         = true
+        min_nodes                       = 2
+        max_nodes                       = 10
+        scale_down_threshold            = 50
+        threshold_duration_minutes      = 10
+        post_scale_up_exclusion_minutes = 5
       }
     }
   }

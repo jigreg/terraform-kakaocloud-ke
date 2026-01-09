@@ -33,14 +33,14 @@ module "ke" {
           desired_nodes = 10
           schedule_type = "cron"
           start_time    = "2025-01-01T00:00:00Z"
-          schedule      = "0 0 * * 1-5"  # Weekdays at midnight UTC (9am KST)
+          schedule      = "0 0 * * 1-5" # Weekdays at midnight UTC (9am KST)
         },
         {
           name          = "evening-scaledown"
           desired_nodes = 2
           schedule_type = "cron"
           start_time    = "2025-01-01T00:00:00Z"
-          schedule      = "0 9 * * 1-5"  # Weekdays at 9am UTC (6pm KST)
+          schedule      = "0 9 * * 1-5" # Weekdays at 9am UTC (6pm KST)
         }
       ]
     }

@@ -1,3 +1,73 @@
+# Terraform Kakao Cloud Kubernetes Engine Module
+
+A reusable Terraform module for creating and managing Kakao Cloud Kubernetes Engine (KE) clusters.
+
+## Features
+
+- KE cluster creation and management
+- Multiple node pools support (Map of Objects pattern)
+- Node pool defaults configuration (`node_pool_defaults`)
+- Resource-based auto-scaling
+- Time-based scheduled scaling (cron/once)
+- Automatic kubeconfig generation
+
+## Usage
+
+```hcl
+module "ke" {
+  source = "path/to/terraform-kakaocloud-ke"
+
+  cluster_name    = "my-cluster"
+  cluster_version = "1.29"
+
+  vpc_id     = "vpc-xxxxxxxx"
+  subnet_ids = ["subnet-aaaa", "subnet-bbbb"]
+
+  node_pool_defaults = {
+    ssh_key_name = "my-ssh-key"
+  }
+
+  node_pools = {
+    default = {
+      node_count  = 3
+      node_flavor = "m2a.large"
+    }
+  }
+}
+```
+
+## Examples
+
+- [simple](./examples/simple) - Basic cluster creation
+- [multiple-node-pools](./examples/multiple-node-pools) - Multiple node pools configuration
+- [auto-scaling](./examples/auto-scaling) - Auto-scaling configuration
+- [scheduled-scaling](./examples/scheduled-scaling) - Scheduled scaling configuration
+
+## Development
+
+### Prerequisites
+
+- [Terraform](https://www.terraform.io/downloads.html) >= 1.5.0
+- [terraform-docs](https://github.com/terraform-docs/terraform-docs) (for documentation generation)
+
+### Make Commands
+
+| Command | Description |
+|---------|-------------|
+| `make docs` | Generate README.md for all modules |
+| `make fmt` | Format Terraform files |
+| `make validate` | Validate all modules |
+| `make clean` | Clean .terraform cache |
+| `make all` | Run fmt + docs + validate |
+
+```bash
+# Generate documentation
+make docs
+
+# Run all checks
+make all
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -8,7 +78,7 @@
 
 ## Providers
 
-No providers.
+| <a name="requirement_kakaocloud"></a> [kakaocloud](#requirement\_kakaocloud) | >= 0.2.0 |
 
 ## Modules
 
@@ -33,7 +103,7 @@ No resources.
 | <a name="input_is_allocate_fip"></a> [is\_allocate\_fip](#input\_is\_allocate\_fip) | Whether to allocate a floating IP to the control plane. | `bool` | `true` | no |
 | <a name="input_network_config"></a> [network\_config](#input\_network\_config) | Network configuration for the cluster. | <pre>object({<br/>    cni          = optional(string, "cilium")<br/>    pod_cidr     = optional(string, "172.16.0.0/16")<br/>    service_cidr = optional(string, "172.17.0.0/16")<br/>  })</pre> | `{}` | no |
 | <a name="input_node_pool_defaults"></a> [node\_pool\_defaults](#input\_node\_pool\_defaults) | Default values applied to all node pools (can be overridden per pool). | <pre>object({<br/>    node_count   = optional(number, 2)<br/>    node_flavor  = optional(string, "m2a.large")<br/>    ssh_key_name = optional(string, null)<br/>    volume_size  = optional(number, null)<br/>    labels       = optional(map(string), {})<br/>    taints = optional(list(object({<br/>      key    = string<br/>      value  = optional(string, "")<br/>      effect = string<br/>    })), [])<br/>  })</pre> | `{}` | no |
-| <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Map of node pool configurations. Each key is the node pool name.<br/><br/>Example:<br/>node\_pools = {<br/>  default = {<br/>    node\_count  = 2<br/>    node\_flavor = "m2a.large"<br/>  }<br/>  gpu = {<br/>    node\_count  = 1<br/>    node\_flavor = "g2a.xlarge"<br/>    is\_gpu      = true<br/>    labels      = { "nvidia.com/gpu" = "true" }<br/>    taints = [{<br/>      key    = "nvidia.com/gpu"<br/>      value  = "true"<br/>      effect = "NoSchedule"<br/>    }]<br/>  }<br/>} | <pre>map(object({<br/>    # Basic configuration<br/>    node_count         = optional(number, 2)<br/>    min_node_count     = optional(number, null)<br/>    max_node_count     = optional(number, null)<br/>    node_flavor        = optional(string, "m2a.large")<br/>    description        = optional(string, "")<br/><br/>    # Image configuration<br/>    kubernetes_version = optional(string, null)<br/>    is_gpu             = optional(bool, false)<br/>    image_id           = optional(string, null)<br/><br/>    # Network configuration<br/>    vpc_id             = optional(string, null)<br/>    subnet_ids         = optional(list(string), null)<br/>    security_group_ids = optional(list(string), [])<br/><br/>    # Node configuration<br/>    ssh_key_name = optional(string, null)<br/>    user_script  = optional(string, null)<br/>    volume_size  = optional(number, null)<br/><br/>    # Kubernetes configuration<br/>    labels = optional(map(string), {})<br/>    taints = optional(list(object({<br/>      key    = string<br/>      value  = optional(string, "")<br/>      effect = string<br/>    })), [])<br/><br/>    # Auto-scaling configuration<br/>    auto_scaling = optional(object({<br/>      enabled                          = optional(bool, false)<br/>      min_nodes                        = optional(number, 1)<br/>      max_nodes                        = optional(number, 10)<br/>      scale_down_threshold             = optional(number, 50)<br/>      threshold_duration_minutes       = optional(number, 10)<br/>      post_scale_up_exclusion_minutes  = optional(number, 10)<br/>    }), null)<br/><br/>    # Scheduled scaling rules<br/>    # schedule_type: "cron" (periodic) or "once" (single execution)<br/>    scheduled_scaling = optional(list(object({<br/>      name          = string<br/>      desired_nodes = number<br/>      schedule_type = string<br/>      start_time    = string<br/>      schedule      = optional(string, null)<br/>    })), [])<br/><br/>    # Lifecycle<br/>    create = optional(bool, true)<br/>  }))</pre> | `{}` | no |
+| <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Map of node pool configurations. Each key is the node pool name.<br/><br/>Example:<br/>node\_pools = {<br/>  default = {<br/>    node\_count  = 2<br/>    node\_flavor = "m2a.large"<br/>  }<br/>  gpu = {<br/>    node\_count  = 1<br/>    node\_flavor = "g2a.xlarge"<br/>    is\_gpu      = true<br/>    labels      = { "nvidia.com/gpu" = "true" }<br/>    taints = [{<br/>      key    = "nvidia.com/gpu"<br/>      value  = "true"<br/>      effect = "NoSchedule"<br/>    }]<br/>  }<br/>} | <pre>map(object({<br/>    # Basic configuration<br/>    node_count     = optional(number, 2)<br/>    min_node_count = optional(number, null)<br/>    max_node_count = optional(number, null)<br/>    node_flavor    = optional(string, "m2a.large")<br/>    description    = optional(string, "")<br/><br/>    # Image configuration<br/>    kubernetes_version = optional(string, null)<br/>    is_gpu             = optional(bool, false)<br/>    image_id           = optional(string, null)<br/><br/>    # Network configuration<br/>    vpc_id             = optional(string, null)<br/>    subnet_ids         = optional(list(string), null)<br/>    security_group_ids = optional(list(string), [])<br/><br/>    # Node configuration<br/>    ssh_key_name = optional(string, null)<br/>    user_script  = optional(string, null)<br/>    volume_size  = optional(number, null)<br/><br/>    # Kubernetes configuration<br/>    labels = optional(map(string), {})<br/>    taints = optional(list(object({<br/>      key    = string<br/>      value  = optional(string, "")<br/>      effect = string<br/>    })), [])<br/><br/>    # Auto-scaling configuration<br/>    auto_scaling = optional(object({<br/>      enabled                         = optional(bool, false)<br/>      min_nodes                       = optional(number, 1)<br/>      max_nodes                       = optional(number, 10)<br/>      scale_down_threshold            = optional(number, 50)<br/>      threshold_duration_minutes      = optional(number, 10)<br/>      post_scale_up_exclusion_minutes = optional(number, 10)<br/>    }), null)<br/><br/>    # Scheduled scaling rules<br/>    # schedule_type: "cron" (periodic) or "once" (single execution)<br/>    scheduled_scaling = optional(list(object({<br/>      name          = string<br/>      desired_nodes = number<br/>      schedule_type = string<br/>      start_time    = string<br/>      schedule      = optional(string, null)<br/>    })), [])<br/><br/>    # Lifecycle<br/>    create = optional(bool, true)<br/>  }))</pre> | `{}` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnet IDs for the cluster (spread across at least 2 AZs). | `list(string)` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the existing VPC for the cluster. | `string` | n/a | yes |
 

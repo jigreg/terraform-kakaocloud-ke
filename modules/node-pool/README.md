@@ -27,7 +27,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_auto_scaling"></a> [auto\_scaling](#input\_auto\_scaling) | Resource-based auto-scaling configuration. | <pre>object({<br/>    enabled                          = optional(bool, false)<br/>    min_nodes                        = optional(number, 1)<br/>    max_nodes                        = optional(number, 10)<br/>    scale_down_threshold             = optional(number, 50)<br/>    threshold_duration_minutes       = optional(number, 10)<br/>    post_scale_up_exclusion_minutes  = optional(number, 10)<br/>  })</pre> | `null` | no |
+| <a name="input_auto_scaling"></a> [auto\_scaling](#input\_auto\_scaling) | Resource-based auto-scaling configuration. | <pre>object({<br/>    enabled                         = optional(bool, false)<br/>    min_nodes                       = optional(number, 1)<br/>    max_nodes                       = optional(number, 10)<br/>    scale_down_threshold            = optional(number, 50)<br/>    threshold_duration_minutes      = optional(number, 10)<br/>    post_scale_up_exclusion_minutes = optional(number, 10)<br/>  })</pre> | `null` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the cluster this node pool belongs to. | `string` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Controls whether to create the node pool. | `bool` | `true` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the node pool. | `string` | `""` | no |
@@ -41,7 +41,6 @@ No modules.
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | List of security group IDs to attach to nodes. | `list(string)` | `[]` | no |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | SSH KeyPair name to inject into nodes. | `string` | `null` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnet IDs for the node pool. | `list(string)` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to node pool resources. | `map(string)` | `{}` | no |
 | <a name="input_taints"></a> [taints](#input\_taints) | Kubernetes taints to apply to nodes. | <pre>list(object({<br/>    key    = string<br/>    value  = optional(string, "")<br/>    effect = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_user_script"></a> [user\_script](#input\_user\_script) | User script to run on node initialization (base64 encoded, up to 16KB). | `string` | `null` | no |
 | <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | Volume size in GB (30-16384, SSD only). | `number` | `null` | no |

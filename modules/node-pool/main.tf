@@ -107,11 +107,11 @@ resource "kakaocloud_kubernetes_engine_node_pool" "this" {
 
   # Auto-scaling configuration (object, not block)
   autoscaling = local.auto_scaling_enabled ? {
-    is_autoscaler_enable              = true
-    autoscaler_min_node_count         = var.auto_scaling.min_nodes
-    autoscaler_max_node_count         = var.auto_scaling.max_nodes
-    autoscaler_desired_node_count     = var.node_count
-    autoscaler_scale_down_threshold   = var.auto_scaling.scale_down_threshold / 100.0
+    is_autoscaler_enable                = true
+    autoscaler_min_node_count           = var.auto_scaling.min_nodes
+    autoscaler_max_node_count           = var.auto_scaling.max_nodes
+    autoscaler_desired_node_count       = var.node_count
+    autoscaler_scale_down_threshold     = var.auto_scaling.scale_down_threshold / 100.0
     autoscaler_scale_down_unneeded_time = var.auto_scaling.threshold_duration_minutes * 60
     autoscaler_scale_down_unready_time  = var.auto_scaling.post_scale_up_exclusion_minutes * 60
   } : null

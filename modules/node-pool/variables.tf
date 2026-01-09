@@ -123,22 +123,12 @@ variable "taints" {
 variable "auto_scaling" {
   description = "Resource-based auto-scaling configuration."
   type = object({
-    enabled                          = optional(bool, false)
-    min_nodes                        = optional(number, 1)
-    max_nodes                        = optional(number, 10)
-    scale_down_threshold             = optional(number, 50)
-    threshold_duration_minutes       = optional(number, 10)
-    post_scale_up_exclusion_minutes  = optional(number, 10)
+    enabled                         = optional(bool, false)
+    min_nodes                       = optional(number, 1)
+    max_nodes                       = optional(number, 10)
+    scale_down_threshold            = optional(number, 50)
+    threshold_duration_minutes      = optional(number, 10)
+    post_scale_up_exclusion_minutes = optional(number, 10)
   })
   default = null
-}
-
-# ------------------------------------------------------------------------------
-# Tags
-# ------------------------------------------------------------------------------
-
-variable "tags" {
-  description = "Tags to apply to node pool resources."
-  type        = map(string)
-  default     = {}
 }

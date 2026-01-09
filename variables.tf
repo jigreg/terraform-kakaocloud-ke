@@ -105,11 +105,11 @@ variable "node_pools" {
 
   type = map(object({
     # Basic configuration
-    node_count         = optional(number, 2)
-    min_node_count     = optional(number, null)
-    max_node_count     = optional(number, null)
-    node_flavor        = optional(string, "m2a.large")
-    description        = optional(string, "")
+    node_count     = optional(number, 2)
+    min_node_count = optional(number, null)
+    max_node_count = optional(number, null)
+    node_flavor    = optional(string, "m2a.large")
+    description    = optional(string, "")
 
     # Image configuration
     kubernetes_version = optional(string, null)
@@ -136,12 +136,12 @@ variable "node_pools" {
 
     # Auto-scaling configuration
     auto_scaling = optional(object({
-      enabled                          = optional(bool, false)
-      min_nodes                        = optional(number, 1)
-      max_nodes                        = optional(number, 10)
-      scale_down_threshold             = optional(number, 50)
-      threshold_duration_minutes       = optional(number, 10)
-      post_scale_up_exclusion_minutes  = optional(number, 10)
+      enabled                         = optional(bool, false)
+      min_nodes                       = optional(number, 1)
+      max_nodes                       = optional(number, 10)
+      scale_down_threshold            = optional(number, 50)
+      threshold_duration_minutes      = optional(number, 10)
+      post_scale_up_exclusion_minutes = optional(number, 10)
     }), null)
 
     # Scheduled scaling rules
