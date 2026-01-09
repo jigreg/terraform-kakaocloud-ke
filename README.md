@@ -77,7 +77,8 @@ make all
 | <a name="requirement_kakaocloud"></a> [kakaocloud](#requirement\_kakaocloud) | >= 0.2.0 |
 
 ## Providers
-
+| Name | Version |
+|------|---------|
 | <a name="requirement_kakaocloud"></a> [kakaocloud](#requirement\_kakaocloud) | >= 0.2.0 |
 
 ## Modules
