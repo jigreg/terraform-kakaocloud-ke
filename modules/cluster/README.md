@@ -9,11 +9,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_kakaocloud"></a> [kakaocloud](#provider\_kakaocloud) | ~> 0.2.0 |
-
-## Modules
-
-No modules.
+| <a name="provider_kakaocloud"></a> [kakaocloud](#provider\_kakaocloud) | 0.2.0 |
 
 ## Resources
 
@@ -26,14 +22,14 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cni"></a> [cni](#input\_cni) | CNI plugin selection. Supported: cilium, calico. | `string` | `"cilium"` | no |
+| <a name="input_cni"></a> [cni](#input\_cni) | CNI plugin selection. Supported: cilium, calico. | `string` | `"calico"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Controls whether to create the cluster. | `bool` | `true` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the cluster. | `string` | `""` | no |
 | <a name="input_is_allocate_fip"></a> [is\_allocate\_fip](#input\_is\_allocate\_fip) | Whether to allocate a floating IP to the control plane. | `bool` | `true` | no |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Kubernetes minor version for the control plane (e.g., '1.29', '1.30'). | `string` | `"1.29"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Kubernetes Engine cluster (4-20 characters). | `string` | n/a | yes |
-| <a name="input_pod_cidr"></a> [pod\_cidr](#input\_pod\_cidr) | CIDR block for Pod networks. | `string` | `"172.16.0.0/16"` | no |
-| <a name="input_service_cidr"></a> [service\_cidr](#input\_service\_cidr) | CIDR block for Service networks. | `string` | `"172.17.0.0/16"` | no |
+| <a name="input_pod_cidr"></a> [pod\_cidr](#input\_pod\_cidr) | CIDR block for Pod networks. | `string` | `"192.168.0.0/16"` | no |
+| <a name="input_service_cidr"></a> [service\_cidr](#input\_service\_cidr) | CIDR block for Service networks. | `string` | `"172.16.0.0/12"` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnet IDs for the cluster. | `list(string)` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the existing VPC for the cluster. | `string` | n/a | yes |
 

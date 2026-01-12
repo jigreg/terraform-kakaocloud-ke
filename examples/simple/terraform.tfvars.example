@@ -55,7 +55,7 @@ node_count = 2
 #   - m2a.2xlarge : 8 vCPU, 32GB RAM (general purpose)
 #   - r2a.large   : 2 vCPU, 16GB RAM (memory optimized)
 #   - r2a.xlarge  : 4 vCPU, 32GB RAM (memory optimized)
-#   - g2a.xlarge  : 4 vCPU, 16GB RAM + GPU (GPU workloads)
+#   - gn1i.xlarge : 4 vCPU, 16GB RAM, NVIDIA T4 GPU (GPU workloads)
 node_flavor = "m2a.large"
 
 # SSH key name for node access (must exist in Kakao Cloud)

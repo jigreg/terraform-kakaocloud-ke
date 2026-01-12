@@ -100,7 +100,7 @@ variable "node_pools" {
       }
       gpu = {
         node_count  = 1
-        node_flavor = "g2a.xlarge"
+        node_flavor = "gn1i.xlarge"
         is_gpu      = true
         labels      = { "nvidia.com/gpu" = "true" }
         taints = [{

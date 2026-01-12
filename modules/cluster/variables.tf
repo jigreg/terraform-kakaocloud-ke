@@ -48,7 +48,7 @@ variable "subnet_ids" {
 variable "cni" {
   description = "CNI plugin selection. Supported: cilium, calico."
   type        = string
-  default     = "cilium"
+  default     = "calico"
 
   validation {
     condition     = contains(["cilium", "calico"], var.cni)
@@ -59,12 +59,12 @@ variable "cni" {
 variable "pod_cidr" {
   description = "CIDR block for Pod networks."
   type        = string
-  default     = "172.16.0.0/16"
+  default     = "192.168.0.0/16"
 }
 
 variable "service_cidr" {
   description = "CIDR block for Service networks."
   type        = string
-  default     = "172.17.0.0/16"
+  default     = "172.16.0.0/12"
 }
 

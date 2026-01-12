@@ -10,11 +10,8 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_kakaocloud"></a> [kakaocloud](#provider\_kakaocloud) | >= 0.2.0 |
+| <a name="provider_kakaocloud"></a> [kakaocloud](#provider\_kakaocloud) | 0.2.0 |
 
-## Modules
-
-No modules.
 
 ## Resources
 

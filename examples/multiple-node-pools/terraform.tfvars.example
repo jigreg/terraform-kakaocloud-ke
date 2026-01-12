@@ -72,9 +72,9 @@ ssh_key_name = "my-ssh-key"
 #    - For databases, Redis, Elasticsearch, etc.
 #
 # 3. GPU Pool:
-#    - 1x g2a.xlarge (4 vCPU, 16GB RAM + GPU)
+#    - 1x gn1i.xlarge (4 vCPU, 16GB RAM, NVIDIA T4 GPU)
 #    - Labels: nvidia.com/gpu=true, workload-type=gpu
 #    - Taint: nvidia.com/gpu=true:NoSchedule
-#    - For ML training, inference workloads
+#    - For ML inference, lightweight training workloads
 #
 # To modify node pool configurations, edit main.tf directly.

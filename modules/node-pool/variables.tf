@@ -91,13 +91,13 @@ variable "minor_version" {
 variable "volume_size" {
   description = "Root volume size in GiB. Required for VM or GPU node pools."
   type        = number
-  default     = null
+  default     = "50"
 }
 
 variable "is_hyper_threading" {
   description = "Whether hyper-threading is enabled. true: 2 vCPUs per physical core, false: vCPUs equal to physical cores."
   type        = bool
-  default     = null
+  default     = true
 }
 
 variable "user_data" {
@@ -142,9 +142,9 @@ variable "auto_scaling" {
     enabled                         = optional(bool, false)
     min_nodes                       = optional(number, 1)
     max_nodes                       = optional(number, 10)
-    scale_down_threshold            = optional(number, 50)       # Percentage (0-100), converted to ratio
-    threshold_duration_minutes      = optional(number, 10)       # Converted to seconds
-    post_scale_up_exclusion_minutes = optional(number, 10)       # Converted to seconds
+    scale_down_threshold            = optional(number, 50) # Percentage (0-100), converted to ratio
+    threshold_duration_minutes      = optional(number, 10) # Converted to seconds
+    post_scale_up_exclusion_minutes = optional(number, 10) # Converted to seconds
   })
   default = null
 }
@@ -156,10 +156,10 @@ variable "auto_scaling" {
 variable "timeouts" {
   description = "Custom timeout settings for create, read, update, delete operations."
   type = object({
-    create = optional(string, null)
-    read   = optional(string, null)
-    update = optional(string, null)
-    delete = optional(string, null)
+    create = optional(string, "30m")
+    read   = optional(string, "5m")
+    update = optional(string, "10m")
+    delete = optional(string, "5m")
   })
   default = null
 }
