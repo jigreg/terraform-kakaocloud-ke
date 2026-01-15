@@ -1,4 +1,4 @@
-# Terraform Kakao Cloud Kubernetes Engine Module
+# Kakao Cloud Kubernetes Engine Terraform Module
 
 A reusable Terraform module for creating and managing Kakao Cloud Kubernetes Engine (KE) clusters.
 
@@ -38,7 +38,7 @@ module "ke" {
 
 ## Examples
 
-- [simple](./examples/simple) - Basic cluster creation
+- [simple](./examples/simple) - Basic cluster configuration
 - [multiple-node-pools](./examples/multiple-node-pools) - Multiple node pools configuration
 - [auto-scaling](./examples/auto-scaling) - Auto-scaling configuration
 - [scheduled-scaling](./examples/scheduled-scaling) - Scheduled scaling configuration
