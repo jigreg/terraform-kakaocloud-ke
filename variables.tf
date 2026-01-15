@@ -63,14 +63,14 @@ variable "subnet_ids" {
 variable "network_config" {
   description = "Network configuration for the cluster."
   type = object({
-    cni          = optional(string, "cilium")
-    pod_cidr     = optional(string, "172.16.0.0/16")
-    service_cidr = optional(string, "172.17.0.0/16")
+    cni          = optional(string, "calico")
+    pod_cidr     = optional(string, "192.168.0.0/16")
+    service_cidr = optional(string, "172.16.0.0/12")  
   })
   default = {}
 
   validation {
-    condition     = contains(["cilium", "calico"], try(var.network_config.cni, "cilium"))
+    condition     = contains(["cilium", "calico"], try(var.network_config.cni, "calico"))
     error_message = "CNI must be one of: cilium, calico."
   }
 }
