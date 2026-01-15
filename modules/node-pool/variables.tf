@@ -51,7 +51,7 @@ variable "subnet_ids" {
 variable "kubernetes_version" {
   description = "Kubernetes version for node pool image selection."
   type        = string
-  default     = "1.29"
+  default     = "1.30"
 }
 
 variable "is_gpu" {

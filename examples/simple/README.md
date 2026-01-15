@@ -27,7 +27,7 @@ No resources.
 | <a name="input_application_credential_id"></a> [application\_credential\_id](#input\_application\_credential\_id) | Kakao Cloud application credential ID. | `string` | n/a | yes |
 | <a name="input_application_credential_secret"></a> [application\_credential\_secret](#input\_application\_credential\_secret) | Kakao Cloud application credential secret. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the cluster (4-20 characters). | `string` | n/a | yes |
-| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes version. | `string` | `"1.29"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes version. | `string` | `"1.30"` | no |
 | <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of nodes. | `number` | `2` | no |
 | <a name="input_node_flavor"></a> [node\_flavor](#input\_node\_flavor) | Instance flavor for nodes. | `string` | `"m2a.large"` | no |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | SSH key name. | `string` | n/a | yes |

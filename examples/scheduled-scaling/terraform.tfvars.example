@@ -30,7 +30,7 @@ application_credential_secret = "your-application-credential-secret"
 cluster_name = "scheduled-cluster"
 
 # Kubernetes version (check available versions in Kakao Cloud console)
-cluster_version = "1.29"
+cluster_version = "1.30"
 
 # ------------------------------------------------------------------------------
 # Network Configuration

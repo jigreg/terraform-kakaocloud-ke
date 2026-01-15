@@ -31,7 +31,7 @@
 | <a name="input_image_id"></a> [image\_id](#input\_image\_id) | Override the auto-detected image ID. | `string` | `null` | no |
 | <a name="input_is_gpu"></a> [is\_gpu](#input\_is\_gpu) | Whether this is a GPU node pool (for image selection). | `bool` | `false` | no |
 | <a name="input_is_hyper_threading"></a> [is\_hyper\_threading](#input\_is\_hyper\_threading) | Whether hyper-threading is enabled. true: 2 vCPUs per physical core, false: vCPUs equal to physical cores. | `bool` | `true` | no |
-| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Kubernetes version for node pool image selection. | `string` | `"1.29"` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Kubernetes version for node pool image selection. | `string` | `"1.30"` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | Kubernetes labels to apply to nodes (key/value pairs). | `map(string)` | `{}` | no |
 | <a name="input_minor_version"></a> [minor\_version](#input\_minor\_version) | Kubernetes minor version of the node pool. | `string` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the node pool. | `string` | n/a | yes |

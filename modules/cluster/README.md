@@ -26,7 +26,7 @@
 | <a name="input_create"></a> [create](#input\_create) | Controls whether to create the cluster. | `bool` | `true` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the cluster. | `string` | `""` | no |
 | <a name="input_is_allocate_fip"></a> [is\_allocate\_fip](#input\_is\_allocate\_fip) | Whether to allocate a floating IP to the control plane. | `bool` | `true` | no |
-| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Kubernetes minor version for the control plane (e.g., '1.29', '1.30'). | `string` | `"1.29"` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Kubernetes minor version for the control plane (e.g., '1.30', '1.31'). | `string` | `"1.30"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Kubernetes Engine cluster (4-20 characters). | `string` | n/a | yes |
 | <a name="input_pod_cidr"></a> [pod\_cidr](#input\_pod\_cidr) | CIDR block for Pod networks. | `string` | `"192.168.0.0/16"` | no |
 | <a name="input_service_cidr"></a> [service\_cidr](#input\_service\_cidr) | CIDR block for Service networks. | `string` | `"172.16.0.0/12"` | no |

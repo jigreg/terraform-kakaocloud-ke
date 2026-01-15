@@ -35,9 +35,9 @@ variable "cluster_description" {
 }
 
 variable "cluster_version" {
-  description = "Kubernetes minor version for the control plane (e.g., '1.29', '1.30')."
+  description = "Kubernetes minor version for the control plane (e.g., '1.30', '1.31')."
   type        = string
-  default     = "1.29"
+  default     = "1.30"
 }
 
 variable "is_allocate_fip" {

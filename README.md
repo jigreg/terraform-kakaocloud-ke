@@ -18,7 +18,7 @@ module "ke" {
   source = "path/to/terraform-kakaocloud-ke"
 
   cluster_name    = "my-cluster"
-  cluster_version = "1.29"
+  cluster_version = "1.30"
 
   vpc_id     = "vpc-xxxxxxxx"
   subnet_ids = ["subnet-aaaa", "subnet-bbbb"]
@@ -100,7 +100,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_description"></a> [cluster\_description](#input\_cluster\_description) | Description of the cluster. | `string` | `""` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the Kubernetes Engine cluster (4-20 characters). | `string` | n/a | yes |
-| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes minor version for the control plane (e.g., '1.29', '1.30'). | `string` | `"1.29"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes minor version for the control plane (e.g., '1.30', '1.31'). | `string` | `"1.30"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Controls whether to create the cluster and related resources. | `bool` | `true` | no |
 | <a name="input_is_allocate_fip"></a> [is\_allocate\_fip](#input\_is\_allocate\_fip) | Whether to allocate a floating IP to the control plane. | `bool` | `true` | no |
 | <a name="input_network_config"></a> [network\_config](#input\_network\_config) | Network configuration for the cluster. | <pre>object({<br/>    cni          = optional(string, "cilium")<br/>    pod_cidr     = optional(string, "172.16.0.0/16")<br/>    service_cidr = optional(string, "172.17.0.0/16")<br/>  })</pre> | `{}` | no |
