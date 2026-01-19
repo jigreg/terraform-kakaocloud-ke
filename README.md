@@ -7,11 +7,14 @@ A reusable Terraform module for creating and managing Kakao Cloud Kubernetes Eng
 - KE cluster creation and management
 - Multiple node pools support (Map of Objects pattern)
 - Node pool defaults configuration (`node_pool_defaults`)
+- Per-node-pool subnet selection
 - Resource-based auto-scaling
 - Time-based scheduled scaling (cron/once)
 - Automatic kubeconfig generation
 
 ## Usage
+
+### Basic
 
 ```hcl
 module "ke" {
@@ -31,6 +34,49 @@ module "ke" {
     default = {
       node_count  = 3
       node_flavor = "m2a.large"
+    }
+  }
+}
+```
+
+### Node Pool with Custom Subnet
+
+Each node pool can be deployed to different subnets. If not specified, the cluster's `subnet_ids` will be used.
+
+```hcl
+module "ke" {
+  source = "path/to/terraform-kakaocloud-ke"
+
+  cluster_name    = "my-cluster"
+  cluster_version = "1.30"
+
+  vpc_id     = "vpc-xxxxxxxx"
+  subnet_ids = ["subnet-default-az1", "subnet-default-az2"]
+
+  node_pool_defaults = {
+    ssh_key_name = "my-ssh-key"
+  }
+
+  node_pools = {
+    # Uses default subnets (inherits cluster subnet_ids)
+    system = {
+      node_count  = 2
+      node_flavor = "m2a.large"
+    }
+
+    # Custom subnet for app workloads
+    app = {
+      node_count  = 3
+      node_flavor = "m2a.xlarge"
+      subnet_ids  = ["subnet-app-az1", "subnet-app-az2"]
+    }
+
+    # Dedicated subnet for GPU nodes
+    gpu = {
+      node_count  = 1
+      node_flavor = "gn1i.xlarge"
+      is_gpu      = true
+      subnet_ids  = ["subnet-gpu-az1"]
     }
   }
 }
